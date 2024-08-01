@@ -15,9 +15,9 @@ class worldSheet(meshWithRender):
         
     def loadObject(self):
 
-        lineX = []#[-10.0,0.0,0.0]+[10.0,0.0,0.0]
-        lineY = []# [0.0,10.0,0.0]+[0.0,-0.0,0.0]
-        lineZ = []#[0.0,0.0,-10.0]+[0.0,0.0,10.0]
+        lineX = []  # [-10.0,  0.0,   0.0] + [10.0,  0.0,  0.0]
+        lineY = []  # [  0.0, 10.0,   0.0] + [ 0.0, -0.0,  0.0]
+        lineZ = []  # [  0.0,  0.0, -10.0] + [ 0.0,  0.0, 10.0]
 
 
         for i in range(-10,11):
@@ -26,17 +26,17 @@ class worldSheet(meshWithRender):
             lineY.extend([fi,0.0,-10.0]+[fi,0.0,10.0])
         
         lineX.extend(lineY)
-        #print lineX
+        # print(lineX)
         lineX.extend(lineZ)
         self.lines = lineX
-        #print len(self.lines)
+        # print(len(self.lines))
         self.linebuffer  = glGenBuffers(1)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,self.linebuffer)
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(self.lines)*4,(GLfloat * len(self.lines))(*self.lines),GL_STATIC_DRAW)        
    
     def loadTexture(self):
         self.texture = None
-        #print "No texture for this object"
+        # print("No texture for this object")
     
     def rendering(self,MVP,View,Projection):
         self.shader.begin()

@@ -42,7 +42,7 @@ class Shader(object):
         gl.glShaderSource(self.vs, vertex_shader_source_list)
         gl.glCompileShader(self.vs)
         if(gl.GL_TRUE!=gl.glGetShaderiv(self.vs, gl.GL_COMPILE_STATUS)):
-    	    err =  gl.glGetShaderInfoLog(self.vs) 
+            err =  gl.glGetShaderInfoLog(self.vs) 
             raise Exception(err)  
         gl.glAttachShader(self.program, self.vs)
         printOpenGLError()
@@ -53,7 +53,7 @@ class Shader(object):
         gl.glShaderSource(self.fs, fragment_shader_source_list)
         gl.glCompileShader(self.fs)
         if(gl.GL_TRUE!=gl.glGetShaderiv(self.fs, gl.GL_COMPILE_STATUS)):
-    	    err =  gl.glGetShaderInfoLog(self.fs) 
+            err =  gl.glGetShaderInfoLog(self.fs) 
             raise Exception(err)       
         gl.glAttachShader(self.program, self.fs)
         printOpenGLError()
@@ -61,7 +61,7 @@ class Shader(object):
         #print('link...')
         gl.glLinkProgram(self.program)
         if(gl.GL_TRUE!=gl.glGetProgramiv(self.program, gl.GL_LINK_STATUS)):
-    	    err =  gl.glGetShaderInfoLog(self.vs) 
+            err =  gl.glGetShaderInfoLog(self.vs) 
             raise Exception(err)          
         printOpenGLError()
 

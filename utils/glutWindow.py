@@ -22,14 +22,14 @@ class GlutWindow(object):
         #built in model
         oglut.glutSolidTeapot(1)
 
-        print "please overrider ogl_draw" 
+        print("please overrider ogl_draw")
     def display(self):    
         self.ogl_draw()
         oglut.glutSwapBuffers()
     def idle(self):
         pass
     def resize(self,Width,Height):
-        print "please overrider resize"
+        print("please overrider resize")
         gl.glViewport(0, 0, Width, Height)
         glu.gluPerspective(45.0, float(Width)/float(Height), 0.1, 1000.0)        
 
@@ -37,23 +37,23 @@ class GlutWindow(object):
         if(self.controller!=None):
               self.controller.on_keyboard(key,x,y)
         else:
-            print "please overrider on_keyboard" 
+            print("please overrider on_keyboard")
     def on_special_key(self,key,x,y):     
         if(self.controller!=None):
               self.controller.on_special_key(key,x,y)
         else:
-            print "please overrider on_keyboard"         
+            print("please overrider on_keyboard")
         
     def on_mouse(self,*args,**kwargs):
         if(self.controller!=None):
               self.controller.on_mouse(*args,**kwargs)
         else:        
-            print "please overrider on_mouse" 
+            print("please overrider on_mouse")
     def on_mousemove(self,*args,**kwargs):
         if(self.controller!=None):
               self.controller.on_mousemove(*args,**kwargs)
         else:                
-            print "please overrider on_mousemove" 
+            print("please overrider on_mousemove")
                 
     def __init__(self,*args,**kwargs):
 

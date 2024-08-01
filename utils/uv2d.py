@@ -12,9 +12,9 @@ class UV2D(object):
         self.UVbuffer = uv
         self.size = size
         self.indicesbuffer =indices
-        print self.indicesbuffer
+        print(self.indicesbuffer)
     def draw(self):
-        #do this without shader
+        # do this without shader
         self.shader.begin()
 
         glEnableVertexAttribArray(0)
@@ -28,11 +28,11 @@ class UV2D(object):
 
        
         glDrawElements(
-            GL_TRIANGLES,      # mode
-            self.size,    #// count
-            GL_UNSIGNED_SHORT, #  // type
-            None          #// element array buffer offset
-        )	
+            GL_TRIANGLES,       # mode
+            self.size,          # count
+            GL_UNSIGNED_SHORT,  # type
+            None                # element array buffer offset
+        )    
         
         
         glDisableVertexAttribArray(0)  

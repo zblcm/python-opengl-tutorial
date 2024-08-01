@@ -95,7 +95,7 @@ class NormalMapping(meshWithRender):
             uv0 =   uv[offset:offset+2]
             uv1 =   uv[offset+2:offset+4]
             uv2 =   uv[offset+4:offset+6]
-            #print v0,v1,v2
+            # print(v0,v1,v2)
             deltaPos1 = glm.vec3([v1[0]-v0[0],v1[1]-v0[1],v1[2]-v0[2]])
             deltaPos2 = glm.vec3([v2[0]-v0[0],v2[1]-v0[1],v2[2]-v0[2]])
 
@@ -159,7 +159,7 @@ class NormalMapping(meshWithRender):
 
         self.indicesbufferSize = len(model.indices)
 
-        self.indicesbuffer  = glGenBuffers(1)        		
+        self.indicesbuffer  = glGenBuffers(1)                
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,self.indicesbuffer)
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(model.indices)*2,(GLushort * len(model.indices))(*model.indices),GL_STATIC_DRAW)
 
@@ -170,7 +170,7 @@ class NormalMapping(meshWithRender):
             SpecularTexture =  textureLoader(self.textureName[2])
 
             model = self.model
-            # if(DiffuseTexture.inversedVCoords):
+            # if (DiffuseTexture.inversedVCoords):
             for index in range(0,len(model.texcoords)):
                 if(index % 2):
                     model.texcoords[index] = 1.0 - model.texcoords[index]
@@ -185,7 +185,7 @@ class NormalMapping(meshWithRender):
     def rendering(self, MVP,View,Projection):
         self.shader.begin()
         ModelMatrix = glm.mat4(1.0)
-        #print View
+        # print(View)
         ModelViewMatrix = glm.mat4(View)*ModelMatrix
 
         ModelView3x3Matrix = glm.mat3(ModelViewMatrix)        
@@ -239,7 +239,7 @@ class NormalMapping(meshWithRender):
             self.indicesbufferSize,    #// count
             GL_UNSIGNED_SHORT, #  // type
             None          #// element array buffer offset
-        )		
+        )        
 
         glDisableVertexAttribArray(0)
         glDisableVertexAttribArray(1)

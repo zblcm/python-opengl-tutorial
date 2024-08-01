@@ -12,11 +12,11 @@ class MVPControl:
         
     def reset(self):
 
-        #Initial position : on +Z
+        # Initial position : on +Z
         self.position = glm.vec3(5,5,5)
-        #Initial horizontal angle : toward -Z
+        # Initial horizontal angle : toward -Z
         self.XAngle = 4
-        #Initial vertical angle : none
+        # Initial vertical angle : none
         self.YAngle = - 0.6
         # Initial Field of View
         self.ZAngle = 0.0
@@ -38,7 +38,7 @@ class MVPControl:
     def turn(self,angle):
         self.XAngle += angle
         self.computeMatrices()  
-    #calc direction right and up
+    # calc direction right and up
     def computeMatrices(self):
         self.direction = glm.vec3(math.cos(self.YAngle) * math.sin(self.XAngle), 
                         math.sin(self.YAngle),
@@ -66,12 +66,12 @@ class MVPControl:
     
     def calcMVP(self,modelMaterix):
 
-        #print self.position
-        #print self.XAngle,self.YAngle
+        # print(self.position)
+        # print(self.XAngle,self.YAngle)
         return self.ProjectionMatrix * self.ViewMatrix * modelMaterix                                  
 
 def dummyUpdate():
-    print "please implement update"
+    print("please implement update")
 class MVPController(MVPControl):
 
     def __init__(self,updateCallback=dummyUpdate,*args,**kwargs):
@@ -81,7 +81,7 @@ class MVPController(MVPControl):
         self.lastX =0 
         self.lastY =0 
     def on_special_key(self,key,x,y):  
-        print key
+        print(key)
         _key = key   
         if(_key==104): #page down
             self.moveUp(1.0) 
@@ -134,7 +134,7 @@ class MVPController(MVPControl):
                 self.lastX = -1
                 self.lastY = -1    
                 self.mouse_mode = -1           
-            #print "please overrider on_mousemove" ,args
+            # print("please overrider on_mousemove" ,args)
     def on_mousemove(self,*args,**kwargs):
             deltaX = self.lastX - args[0]
             deltaY = self.lastY - args[1]
@@ -145,8 +145,8 @@ class MVPController(MVPControl):
                 self.updateCallback()
             elif(self.mouse_mode==2):
                 (self.lastX,self.lastY) = args
-                #self.lookUpward(deltaY*0.01)
-                #print "."
+                # self.lookUpward(deltaY*0.01)
+                # print(".")
                 self.moveUp(-0.5*deltaX) #page up
                 self.updateCallback()                
-            #print "please overrider on_mousemove" ,args
+            # print("please overrider on_mousemove" ,args)

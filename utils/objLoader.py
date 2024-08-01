@@ -38,7 +38,7 @@ class objLoader(object):
             elif(items[0]=="usemtl"):   
                 self.Materials = items[1]
             else:
-                print "skip unknown line : %s"%line[0:-1]          
+                print("skip unknown line : %s" % line[0:-1])
     def to_array_style(self):
         class Container(object):
             pass
@@ -83,5 +83,5 @@ class objLoader(object):
             newindex = combinations.index(point)
             outobj.indices.append(newindex)
         return outobj
-#print objLoader("resources/tu03/cube.obj").vertexs  
+# print(objLoader("resources/tu03/cube.obj").vertexs)
 

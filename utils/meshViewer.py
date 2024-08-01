@@ -35,12 +35,12 @@ class MeshViewWindow(GlutWindow):
         # self.ProjectionPtr = glm.value_ptr(self.controller.ProjectionMatrix)
 
     def resize(self,Width,Height):  
-        print "resize"      
+        print("resize")
         glViewport(0, 0, Width, Height)
         self.calc_MVP(Width,Height)
 
     def ogl_draw(self):     
-        print "draw"    
+        print("draw")
         self.calc_MVP()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         for mesh in self.meshes:
@@ -87,11 +87,11 @@ class meshWithRender(object):
         
     def loadObject(self):
         self.mesh = None
-        print "Make and fill OPENGL buffers,vertex,uv,normal,trangent,indices"
+        print("Make and fill OPENGL buffers,vertex,uv,normal,trangent,indices")
     def loadTexture(self):
         self.texture = None
-        print "No texture for this object"
+        print("No texture for this object")
     
     def rendering(self,MVPptr,ViewPtr,ProjectionPtr):
-        print "override rendering process"
+        print("override rendering process")
         pass

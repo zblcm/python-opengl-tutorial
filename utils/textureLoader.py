@@ -28,7 +28,7 @@ class textureLoader(object):
         
         self.format = fourCC  
         
-        #print "fourCC",fourCC
+        # print("fourCC",fourCC)
         if(fourCC=="DXT1"):
             components = 3
             blockSize  = 8
@@ -49,7 +49,7 @@ class textureLoader(object):
             bufferSize = linearSize*2
         else:
             bufferSize = linearSize
-        #print bufferSize    
+        # print(bufferSize)
         ddsbuffer = f.read(bufferSize)
         offset = 0
         self.textureGLID = glGenTextures(1)
@@ -63,7 +63,7 @@ class textureLoader(object):
             width  /= 2
             height /= 2
             if(width==0 | height==0):
-                #print "___",width,height,level,mipMapCount
+                # print("___",width,height,level,mipMapCount)
                 break
         self.inversedVCoords = True
         f.close()

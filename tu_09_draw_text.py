@@ -67,7 +67,7 @@ class Draw2DText(meshWithRender):
         self.vertex_array = vertex_array
     def loadTexture(self):
             from utils.textureLoader import textureLoader
-            texture = textureLoader("resources/tu09/Holstein.DDS")	
+            texture = textureLoader("resources/tu09/Holstein.DDS")    
             self.texturebuffer = texture.textureGLID
     def rendering(self, MVP,View,Projection):
         self.shader.begin()

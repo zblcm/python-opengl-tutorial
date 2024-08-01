@@ -42,13 +42,13 @@ class basicShading(meshWithRender):
 
         self.indicesbufferSize = len(model.indices)
 
-        self.indicesbuffer  = glGenBuffers(1)        		
+        self.indicesbuffer  = glGenBuffers(1)                
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,self.indicesbuffer)
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(model.indices)*2,(GLushort * len(model.indices))(*model.indices),GL_STATIC_DRAW)
 
     def loadTexture(self):
             from utils.textureLoader import textureLoader
-            texture = textureLoader(self.textureName)	
+            texture = textureLoader(self.textureName)    
             model = self.model
             if(texture.inversedVCoords):
                 for index in range(0,len(model.texcoords)):
@@ -73,7 +73,7 @@ class basicShading(meshWithRender):
 
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, self.texturebuffer)
-        glUniform1i(self.Texture_ID, 0) 		#// Set  "myTextureSampler" sampler to use Texture Unit 0
+        glUniform1i(self.Texture_ID, 0)         #// Set  "myTextureSampler" sampler to use Texture Unit 0
 
         glEnableVertexAttribArray(0)
         glBindBuffer(GL_ARRAY_BUFFER, self.vertexbuffer)
@@ -94,7 +94,7 @@ class basicShading(meshWithRender):
             self.indicesbufferSize,    #// count
             GL_UNSIGNED_SHORT, #  // type
             None          #// element array buffer offset
-        )		
+        )        
         glDisableVertexAttribArray(0)
         glDisableVertexAttribArray(1)
         glDisableVertexAttribArray(1)
