@@ -84,18 +84,16 @@ g_color_buffer_data = [
 
 
 glfw.init()
-glfw.window_hint(glfw.SAMPLES,4)
-glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR,3)
-glfw.window_hint(glfw.CONTEXT_VERSION_MINOR,3)
-glfw.window_hint(glfw.OPENGL_PROFILE,glfw.OPENGL_CORE_PROFILE)
+glfw.window_hint(glfw.SAMPLES, 4)
+glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, 3)
+glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 3)
+glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
 
-
-window  = glfw.create_window(1024,768,"title of the window",None,None)
+window  = glfw.create_window(800, 400, "title of the window", None, None)
 
 glfw.make_context_current(window)
 
-
-glClearColor(0.0,0,0.4,0)
+glClearColor(0.0, 0.0, 0.4, 0.0)
 glDepthFunc(GL_LESS)
 glEnable(GL_DEPTH_TEST)
 
@@ -105,48 +103,50 @@ glBindVertexArray(vertex)
 shader = Shader()
 shader.initShaderFromGLSL(["glsl/tu01/vertex.glsl"],["glsl/tu01/fragment.glsl"])
 
-MVP_ID   = glGetUniformLocation(shader.program,"MVP")
+MVP_ID = glGetUniformLocation(shader.program, "MVP")
 
-Projection = glm.perspective(glm.radians(45.0),800.0/480.0,0.1,100.0)
-View =  glm.lookAt(glm.vec3(4,3,-3), # Camera is at (4,3,-3), in World Space
-                glm.vec3(0,0,0), # and looks at the (0.0.0))
-                glm.vec3(0,1,0) ) # Head is up (set to 0,-1,0 to look upside-down)
+Projection = glm.perspective(glm.radians(45.0), 800.0 / 400.0, 0.1, 100.0)
+View = glm.lookAt(
+    glm.vec3(4,  3, -3), # Camera is at (4,3,-3), in World Space
+    glm.vec3(0,  0,  0), # and looks at the (0.0.0))
+    glm.vec3(0,  1,  0)
+) # Head is up (set to 0,-1,0 to look upside-down)
 
-Model=  glm.mat4(1.0)
-MVP =  Projection * View *Model
+Model =  glm.mat4(1.0)
+MVP = Projection * View * Model
 # print(context.MVP)
 # exit(0)
 
 vertexbuffer  = glGenBuffers(1)
 glBindBuffer(GL_ARRAY_BUFFER,vertexbuffer)
-glBufferData(GL_ARRAY_BUFFER,len(g_vertex_buffer_data)*4,(GLfloat * len(g_vertex_buffer_data))(*g_vertex_buffer_data),GL_STATIC_DRAW)
-
+glBufferData(GL_ARRAY_BUFFER,len(g_vertex_buffer_data) * 4,(GLfloat * len(g_vertex_buffer_data))(*g_vertex_buffer_data), GL_STATIC_DRAW)
 
 colorbuffer  = glGenBuffers(1)
 glBindBuffer(GL_ARRAY_BUFFER,colorbuffer)
-glBufferData(GL_ARRAY_BUFFER,len(g_color_buffer_data)*4,(GLfloat * len(g_color_buffer_data))(*g_color_buffer_data),GL_STATIC_DRAW)
+glBufferData(GL_ARRAY_BUFFER,len(g_color_buffer_data) * 4,(GLfloat * len(g_color_buffer_data))(*g_color_buffer_data), GL_STATIC_DRAW)
 
-while(True):
+while (not glfw.window_should_close(window)):
     # print(self.context.MVP)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     # shader.begin()
     glUseProgram(shader.program)
-    glUniformMatrix4fv(MVP_ID,1,GL_FALSE,glm.value_ptr(MVP))
+    glUniformMatrix4fv(MVP_ID, 1, GL_FALSE, glm.value_ptr(MVP))
 
     glEnableVertexAttribArray(0)
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer)
 
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,None) # None means ctypes.c_voidp(0)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, None) # None means ctypes.c_voidp(0)
 
     glEnableVertexAttribArray(1)
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer)
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,ctypes.c_voidp(0))
+    glVertexAttribPointer(1, 3, GL_FLOAT,GL_FALSE, 0, ctypes.c_voidp(0))
 
-
-    glDrawArrays(GL_TRIANGLES, 0, 12*3) # 12*3 indices starting at 0 -> 12 triangles
+    glDrawArrays(GL_TRIANGLES, 0, 12 * 3) # 12*3 indices starting at 0 -> 12 triangles
 
     glDisableVertexAttribArray(0)
     glDisableVertexAttribArray(1)
     # shader.end()
     glfw.swap_buffers(window)
+
+    glfw.poll_events()
