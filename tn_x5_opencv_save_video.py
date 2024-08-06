@@ -11,7 +11,7 @@ import torch
 import smplx
 import numpy
 import cv2
-import ffmpeg
+
 def get_smplx_model(path_smplx_model, device):
     smplx_model_params = dict(
         model_path=path_smplx_model,
@@ -40,12 +40,14 @@ def get_smplx_data(npz, smplx_model, frame, device):
     # Convert data to tensor.
     betas = torch.tensor(npz["betas"]).to(device)
     poses = torch.tensor(npz["poses"][frame]).to(device)
-    expressions = torch.tensor(npz["expressions"][frame]).to(device)
+    expressions = None
+    if "expressions" in npz:
+        expressions = torch.tensor(npz["expressions"][frame]).to(device).unsqueeze(0)
 
     # https://files.is.tue.mpg.de/black/talks/SMPL-made-simple-FAQs.pdf
     verts = smplx_model(
         betas=betas.unsqueeze(0),
-        expression=expressions.unsqueeze(0),
+        expression=expressions,
         global_orient=poses[:3].unsqueeze(0),
         body_pose=poses[3:66].unsqueeze(0),
         jaw_pose=poses[66:69].unsqueeze(0),
@@ -290,5 +292,17 @@ class glfwWindow:
             writer.write(cv2.flip(image[:,:,:-1], 0))
         writer.release()
 
+def run_single(path_file_npz):
+    glfwWindow().run(
+        R"D:\WorkingDirectory\FullBodyExternalData\body_models",
+        path_file_npz,
+        path_file_npz[:-4] + ".mp4",
+    )
+    
 if __name__ == "__main__":
-    glfwWindow().run(R"C:\liuchengming\桌面\testGL\visualise", R"C:\liuchengming\桌面\testGL\testdata\npz\00.npz", R"C:\liuchengming\桌面\testGL\testdata\mp4\00.mp4")
+    import sys
+    for arg in sys.argv[1:]:
+        run_single(arg)
+
+# if __name__ == "__main__":
+#     glfwWindow().run(R"D:\WorkingDirectory\FullBodyExternalData\body_models", R"C:\liuchengming\桌面\testGL\testdata\npz\00.npz", R"C:\liuchengming\桌面\testGL\testdata\mp4\00.mp4")

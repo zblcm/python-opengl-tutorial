@@ -257,7 +257,7 @@ def get_smplx_data(path_npz, smplx_model, device):
 
 if __name__ == "__main__":
     device = 'cuda'
-    smplx_model = get_smplx_model(R"C:\liuchengming\桌面\testGL\visualise", device)
+    smplx_model = get_smplx_model(R"D:\WorkingDirectory\FullBodyExternalData\body_models", device)
 
     verts, norms = get_smplx_data(R"C:\liuchengming\桌面\testGL\testdata\npz\00.npz", smplx_model, device)
     glfwWindow().run(verts, norms)

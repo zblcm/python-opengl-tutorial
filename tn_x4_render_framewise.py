@@ -255,4 +255,4 @@ class glfwWindow:
             # del data_normal
 
 if __name__ == "__main__":
-    glfwWindow().run(R"C:\liuchengming\桌面\testGL\visualise", R"C:\liuchengming\桌面\testGL\testdata\npz\00.npz")
+    glfwWindow().run(R"D:\WorkingDirectory\FullBodyExternalData\body_models", R"C:\liuchengming\桌面\testGL\testdata\npz\00.npz")
